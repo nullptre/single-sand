@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Amq", "SingleSand.Amq\SingleSand.Amq.csproj", "{67F90BE4-AE63-402E-A04C-407678B47758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.SenderApplication", "SingleSand.Samples.SenderApplication\SingleSand.Samples.SenderApplication.csproj", "{3BDE0CDC-29F6-4BE6-B6EC-B2E517D141C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.ListenerApplication", "SingleSand.Samples.ListenerApplication\SingleSand.Samples.ListenerApplication.csproj", "{522340AF-7103-4A9A-AEF5-10AB4276305E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.TcpServer", "SingleSand.TcpServer\SingleSand.TcpServer.csproj", "{80270C4C-961B-4463-AA65-BAA224DC571F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.ModelsTest1", "SingleSand.Samples.ModelsTest1\SingleSand.Samples.ModelsTest1.csproj", "{86D9AFE8-66E4-4C70-82BA-8D1E03364E50}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A2A31AF0-7F71-497E-AFBD-24EC2CF10FF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Utils", "SingleSand.Utils\SingleSand.Utils.csproj", "{2B2A7797-99F6-4024-9C36-989124440828}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67F90BE4-AE63-402E-A04C-407678B47758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67F90BE4-AE63-402E-A04C-407678B47758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67F90BE4-AE63-402E-A04C-407678B47758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67F90BE4-AE63-402E-A04C-407678B47758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BDE0CDC-29F6-4BE6-B6EC-B2E517D141C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BDE0CDC-29F6-4BE6-B6EC-B2E517D141C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BDE0CDC-29F6-4BE6-B6EC-B2E517D141C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BDE0CDC-29F6-4BE6-B6EC-B2E517D141C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{522340AF-7103-4A9A-AEF5-10AB4276305E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{522340AF-7103-4A9A-AEF5-10AB4276305E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{522340AF-7103-4A9A-AEF5-10AB4276305E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{522340AF-7103-4A9A-AEF5-10AB4276305E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80270C4C-961B-4463-AA65-BAA224DC571F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80270C4C-961B-4463-AA65-BAA224DC571F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80270C4C-961B-4463-AA65-BAA224DC571F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80270C4C-961B-4463-AA65-BAA224DC571F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86D9AFE8-66E4-4C70-82BA-8D1E03364E50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86D9AFE8-66E4-4C70-82BA-8D1E03364E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86D9AFE8-66E4-4C70-82BA-8D1E03364E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86D9AFE8-66E4-4C70-82BA-8D1E03364E50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B2A7797-99F6-4024-9C36-989124440828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B2A7797-99F6-4024-9C36-989124440828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B2A7797-99F6-4024-9C36-989124440828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B2A7797-99F6-4024-9C36-989124440828}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

@@ -1,22 +1,22 @@
 using System;
 using System.Collections.Generic;
-using SingleSand.Amq.DataModel;
+using SingleSand.Amq.AccessModel;
 
 namespace SingleSand.Amq.Sync
 {
     internal class ConversationAsyncResult : ManualResetAsyncResult
     {
-        private readonly Func<ICollection<Message>, bool> _completionPredicate;
+        private readonly Func<ICollection<IMessage>, bool> _completionPredicate;
 
-        public ConversationAsyncResult(Func<ICollection<Message>, bool> completionPredicate)
+        public ConversationAsyncResult(Func<ICollection<IMessage>, bool> completionPredicate)
         {
             _completionPredicate = completionPredicate;
-            Messages = new LinkedList<Message>();
+            Messages = new LinkedList<IMessage>();
         }
 
-        public ICollection<Message> Messages { get; private set; }
+        public ICollection<IMessage> Messages { get; private set; }
 
-        public bool Put(Message message)
+        public bool Put(IMessage message)
         {
             Messages.Add(message);
             return _completionPredicate(Messages);

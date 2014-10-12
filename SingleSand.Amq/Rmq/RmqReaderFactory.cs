@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using RabbitMQ.Client;
-using SingleSand.Amq.DataModel;
 using SingleSand.Amq.QueueStreaming;
+using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Amq.Rmq
 {

@@ -1,9 +1,9 @@
 using ProtoBuf;
 
-namespace SingleSand.Amq.DataModel
+namespace SingleSand.Samples.Messages
 {
     [ProtoContract]
-    public abstract class Message
+	public abstract class Message
     {
         [ProtoMember(1)]
         public long? ConversationId { get; set; }

@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using SingleSand.Amq.DataModel;
+using SingleSand.Amq.AccessModel;
 
 namespace SingleSand.Amq.QueueStreaming
 {
     public interface IQueueWriter : IDisposable
     {
-        Task Send(Message message);
+        Task Send(IMessage message);
     }
 }

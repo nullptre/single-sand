@@ -1,4 +1,4 @@
-namespace SingleSand.Amq.DataModel
+namespace SingleSand.Utils.Serialization
 {
     public interface ISerializer
     {

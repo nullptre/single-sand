@@ -1,7 +1,8 @@
 using System.Threading.Tasks;
 using RabbitMQ.Client;
-using SingleSand.Amq.DataModel;
+using SingleSand.Amq.AccessModel;
 using SingleSand.Amq.QueueStreaming;
+using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Amq.Rmq
 {
@@ -19,7 +20,7 @@ namespace SingleSand.Amq.Rmq
 
         protected string QueueName { get; private set; }
 
-        public async Task Send(Message message)
+        public async Task Send(IMessage message)
         {
             var body = Serialize(message);
 
@@ -27,7 +28,7 @@ namespace SingleSand.Amq.Rmq
             await Task.Run(() => _channel.BasicPublish(QueueName, "", null, body));
         }
 
-        private byte[] Serialize(Message message)
+        private byte[] Serialize(IMessage message)
         {
             return _serializer.Serialize(message);
         }

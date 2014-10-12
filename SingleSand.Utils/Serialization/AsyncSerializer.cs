@@ -3,9 +3,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using SingleSand.Utils;
 
-namespace SingleSand.Amq.DataModel
+namespace SingleSand.Utils.Serialization
 {
     /// <summary>
     /// Implements asynchronous serialization on top of synchronous serializer.

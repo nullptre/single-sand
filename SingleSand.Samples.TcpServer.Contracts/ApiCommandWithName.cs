@@ -1,6 +1,6 @@
 ﻿using ProtoBuf;
 
-namespace SingleSand.Samples.ModelsTest1
+namespace SingleSand.Samples.TcpServer.Contracts
 {
     [ProtoContract]
     public class ApiCommandWithName

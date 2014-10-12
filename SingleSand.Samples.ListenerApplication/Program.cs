@@ -4,9 +4,11 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
+using SingleSand.Amq;
 using SingleSand.Amq.AccessModel;
-using SingleSand.Amq.DataModel;
-using SingleSand.Samples.ModelsTest1;
+using SingleSand.Samples.Amq.Contracts;
+using SingleSand.Samples.Messages;
+using SingleSand.Samples.TcpServer.Contracts;
 using SingleSand.TcpServer;
 using Bootstrapper = SingleSand.Amq.Bootstrapper;
 
@@ -21,7 +23,7 @@ namespace SingleSand.Samples.ListenerApplication
         static void Main(string[] args)
         {
             Console.WriteLine("Starting Listener App in thread {0}", Thread.CurrentThread.ManagedThreadId);
-            Amq.Runtime.Utils.Run(Run);
+            Tasks.Utils.Run(Run, true);
             Console.WriteLine("App exit");
         }
 
@@ -58,7 +60,7 @@ namespace SingleSand.Samples.ListenerApplication
             }
         }
 
-        private static async Task OnMessage(Message m)
+        private static async Task OnMessage(IMessage m)
         {
             var message = (TextMessage) m;
             Console.WriteLine("Message received: {0}, thread {1}", message.Text, Thread.CurrentThread.ManagedThreadId);
@@ -89,7 +91,7 @@ namespace SingleSand.Samples.ListenerApplication
         {
             var c = new UnityContainer();
             Bootstrapper.SetUp(c);
-            TcpServer.Bootstrapper.SetUp(c);
+            SingleSand.TcpServer.Bootstrapper.SetUp(c);
             c.RegisterType<IClientHandlerFactory, SimpleClientHandler.Factory>(new ContainerControlledLifetimeManager());
             return c;
         }

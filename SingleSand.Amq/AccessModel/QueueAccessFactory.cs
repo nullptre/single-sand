@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SingleSand.Amq.DataModel;
 using SingleSand.Amq.QueueStreaming;
 
 namespace SingleSand.Amq.AccessModel
@@ -31,7 +30,7 @@ namespace SingleSand.Amq.AccessModel
             return result;
         }
 
-        public IContiniousListener GetContinious(string queueName, Func<Message, Task> handler)
+        public IContiniousListener GetContinious(string queueName, Func<IMessage, Task> handler)
         {
             ContiniousListener result;
             if (!_continiousListeners.TryGetValue(queueName, out result))

@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using SingleSand.Amq;
 using SingleSand.Amq.AccessModel;
-using SingleSand.Amq.DataModel;
-using SingleSand.Amq.Runtime;
-using SingleSand.Samples.ModelsTest1;
+using SingleSand.Samples.Amq.Contracts;
+using SingleSand.Samples.Messages;
+using SingleSand.Samples.TcpServer.Contracts;
+using SingleSand.Tasks;
+using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Samples.SenderApplication
 {
@@ -23,7 +25,7 @@ namespace SingleSand.Samples.SenderApplication
             _clientName = args[0];
 
             Console.WriteLine("Starting Sender App");
-            Utils.Run(Run);
+            Tasks.Utils.Run(Run, true);
             Console.WriteLine("App exit");
         }
 

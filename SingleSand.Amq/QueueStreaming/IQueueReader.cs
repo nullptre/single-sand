@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using SingleSand.Amq.DataModel;
+using SingleSand.Amq.AccessModel;
 
 namespace SingleSand.Amq.QueueStreaming
 {
@@ -10,7 +10,7 @@ namespace SingleSand.Amq.QueueStreaming
         /// This event occurs in single thread, so it guarantees
         /// that no parallel handling will execute
         /// </summary>
-        event Func<Message, Task> NewMessage;
+        event Func<IMessage, Task> NewMessage;
 
         string QueueName { get; }
     }

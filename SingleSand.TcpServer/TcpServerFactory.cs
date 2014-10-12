@@ -2,7 +2,7 @@
 
 namespace SingleSand.TcpServer
 {
-    internal class TcpServerFactory : ITcpServerFactory
+	internal class TcpServerFactory : ITcpServerFactory
     {
         private readonly IClientSessionFactory _sessionFactory;
         private readonly IClientHandlerFactory _handlerFactory;

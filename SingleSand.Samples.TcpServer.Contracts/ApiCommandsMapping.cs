@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using SingleSand.Amq.Protobuf;
+using SingleSand.Samples.Messages;
 
-namespace SingleSand.Samples.ModelsTest1
+namespace SingleSand.Samples.TcpServer.Contracts
 {
-    public class ApiCommandsMapping : ISerializableTypesMapping
+	internal class ApiCommandsMapping : ISerializableTypesMapping
     {
         public IDictionary<short, Type> TypesMapping
         {
@@ -12,7 +12,7 @@ namespace SingleSand.Samples.ModelsTest1
             {
                 return new Dictionary<short, Type>
                     {
-                        {1, typeof(ApiCommandWithName) }
+                        { 1, typeof(ApiCommandWithName) }
                     };
             }
         }

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SingleSand.TcpServer
 {
-    internal class ClientSessionFactory : IClientSessionFactory
+	internal class ClientSessionFactory : IClientSessionFactory
     {
         public async Task<IClientSession> Get(TcpClient tcpClient, IClientHandler handler)
         {

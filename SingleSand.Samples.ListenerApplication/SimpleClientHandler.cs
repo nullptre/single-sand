@@ -3,10 +3,10 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
-using SingleSand.Amq.DataModel;
-using SingleSand.Samples.ModelsTest1;
+using SingleSand.Samples.TcpServer.Contracts;
 using SingleSand.TcpServer;
 using SingleSand.Utils;
+using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Samples.ListenerApplication
 {

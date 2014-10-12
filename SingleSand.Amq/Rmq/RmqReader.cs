@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using NLog;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using SingleSand.Amq.DataModel;
+using SingleSand.Amq.AccessModel;
 using SingleSand.Amq.QueueStreaming;
+using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Amq.Rmq
 {
@@ -54,12 +55,12 @@ namespace SingleSand.Amq.Rmq
             Task.Factory.StartNew(asyncChain, CancellationToken.None, TaskCreationOptions.None, _taskScheduler);
         }
 
-        private Message DeserializeMessage(BasicDeliverEventArgs args)
+        private IMessage DeserializeMessage(BasicDeliverEventArgs args)
         {
-            return _serializer.Deserialize<Message>(args.Body);
+            return _serializer.Deserialize<IMessage>(args.Body);
         }
 
-        public event Func<Message, Task> NewMessage;
+        public event Func<IMessage, Task> NewMessage;
 
         public string QueueName { get; private set; }
 

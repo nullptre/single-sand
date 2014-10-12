@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SingleSand.Amq.DataModel;
 
 namespace SingleSand.Amq.AccessModel
 {
     public static class RpcExtensions
     {
-         public static async Task<ICollection<Message>> CallRemotely(this IPublisher publisher, Message message,
+         public static async Task<ICollection<IMessage>> CallRemotely(this IPublisher publisher, IMessage message,
                                                                      IRpcListener listener, ReceiveArgs listenArgs)
          {
              var conversationId = listener.GetNextConversationId();

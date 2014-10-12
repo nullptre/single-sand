@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using SingleSand.Amq.DataModel;
 using SingleSand.Amq.QueueStreaming;
 
 namespace SingleSand.Amq.AccessModel
@@ -13,7 +12,7 @@ namespace SingleSand.Amq.AccessModel
             _queueWriter = queueWriter;
         }
 
-        public async Task Push(Message message)
+        public async Task Push(IMessage message)
         {
             await _queueWriter.Send(message);
         }

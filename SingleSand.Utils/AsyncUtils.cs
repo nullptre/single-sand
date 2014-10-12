@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,28 +9,9 @@ namespace SingleSand.Utils
     /// </summary>
     public static class AsyncUtils
     {
-        private static readonly ConditionalWeakTable<WaitHandle, Task> InfiniteTasksCache
-            = new ConditionalWeakTable<WaitHandle, Task>();
-
-        private static async Task InfiniteTask(CancellationToken cancellation)
+        private static Task InfiniteTask(CancellationToken cancellation)
         {
-            Task result;
-            if (!InfiniteTasksCache.TryGetValue(cancellation.WaitHandle, out result))
-            {
-                result = StartInfiniteTask(cancellation);
-                //key is WaitHandle, since it is unique for each cancellation source
-                InfiniteTasksCache.Add(cancellation.WaitHandle, result);
-            }
-            await result;
-        }
-
-        private static async Task StartInfiniteTask(CancellationToken cancellation)
-        {
-            //TODO use more elegant way of infinite task
-            while (!cancellation.IsCancellationRequested)
-            {
-                await Task.Delay(100000, cancellation);
-            }
+			return Task.Delay(Timeout.Infinite, cancellation);
         }
 
         public static async Task<T> CancelWith<T>(this Task<T> operation, Func<T> cancellationResult, CancellationToken cancellation)

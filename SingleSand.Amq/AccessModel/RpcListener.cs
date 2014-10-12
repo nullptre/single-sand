@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NLog;
-using SingleSand.Amq.DataModel;
 using SingleSand.Amq.QueueStreaming;
 using SingleSand.Amq.Sync;
 
@@ -30,7 +29,7 @@ namespace SingleSand.Amq.AccessModel
             get { return _queueReader.QueueName; }
         }
 
-        public async Task<ICollection<Message>> Receive(long conversationId, ReceiveArgs args)
+        public async Task<ICollection<IMessage>> Receive(long conversationId, ReceiveArgs args)
         {
             if (args == null) throw new ArgumentNullException("args");
 
@@ -47,7 +46,7 @@ namespace SingleSand.Amq.AccessModel
             {
                 var messageTask = Task.Factory.FromAsync(asncResult, r => ((ConversationAsyncResult) r).Messages);
                 var timeoutTask =
-                    Task.Delay(args.Timeout, args.Cancellation).ContinueWith(t => (ICollection<Message>) null);
+                    Task.Delay(args.Timeout, args.Cancellation).ContinueWith(t => (ICollection<IMessage>) null);
                 messageTask = await Task.WhenAny(messageTask, timeoutTask);
 
                 return await messageTask;
@@ -67,7 +66,7 @@ namespace SingleSand.Amq.AccessModel
             return _nextConversationId++;
         }
 
-        private async Task OnNewMessageReceived(Message message)
+        private async Task OnNewMessageReceived(IMessage message)
         {
             if (message == null) throw new ArgumentNullException("message");
 

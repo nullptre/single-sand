@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using SingleSand.Amq.Protobuf;
+using SingleSand.Samples.Messages;
 
-namespace SingleSand.Amq.DataModel
+namespace SingleSand.Samples.Amq.Contracts
 {
-    public class MessagesMapping : ISerializableTypesMapping
+	internal class MessagesMapping : ISerializableTypesMapping
     {
         public IDictionary<short, Type> TypesMapping
         {
@@ -12,7 +12,7 @@ namespace SingleSand.Amq.DataModel
             { 
                 return new Dictionary<short, Type>
                 {
-                    { 1, typeof(TextMessage) }    
+	                { 1, typeof(TextMessage) }
                 };
             }
         }

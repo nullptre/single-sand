@@ -6,11 +6,11 @@ using System.Reflection;
 using System.Threading;
 using ProtoBuf;
 using ProtoBuf.Meta;
-using SingleSand.Amq.DataModel;
+using SingleSand.Utils.Serialization;
 
-namespace SingleSand.Amq.Protobuf
+namespace SingleSand.Samples.Messages
 {
-    internal class Formatter : ISerializer
+	public class Formatter : ISerializer
     {
         private const int SyncTimeoutSeconds = 1;
         private static readonly IDictionary<ulong, Type> Mappings = new Dictionary<ulong, Type>();

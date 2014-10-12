@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace SingleSand.Amq.Protobuf
+namespace SingleSand.Samples.Messages
 {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true, Inherited = false)]
     public class SerializableTypesMappingAttribute : Attribute

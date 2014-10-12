@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SingleSand.Amq.Protobuf
+namespace SingleSand.Samples.Messages
 {
     public interface ISerializableTypesMapping
     {

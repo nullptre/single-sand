@@ -67,9 +67,21 @@
       <Project>{67F90BE4-AE63-402E-A04C-407678B47758}</Project>
       <Name>AsyncAmq</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SingleSand.Samples.ModelsTest1\SingleSand.Samples.ModelsTest1.csproj">
-      <Project>{86D9AFE8-66E4-4C70-82BA-8D1E03364E50}</Project>
-      <Name>ModelsTest1</Name>
+    <ProjectReference Include="..\SingleSand.Samples.Amq.Contracts\SingleSand.Samples.Amq.Contracts.csproj">
+      <Project>{5EA55D2E-CED8-460F-99F8-180CD6B6AD4B}</Project>
+      <Name>SingleSand.Samples.Amq.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingleSand.Samples.Messages\SingleSand.Samples.Messages.csproj">
+      <Project>{9404BEA7-4235-40AF-8FC3-675500164DD2}</Project>
+      <Name>SingleSand.Samples.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingleSand.Samples.TcpServer.Contracts\SingleSand.Samples.TcpServer.Contracts.csproj">
+      <Project>{667B67E8-70FD-4823-936D-84D453FC2D52}</Project>
+      <Name>SingleSand.Samples.TcpServer.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingleSand.Tasks\SingleSand.Tasks.csproj">
+      <Project>{3066a26a-2998-4c71-98ea-f3fa0e81a4ce}</Project>
+      <Name>SingleSand.Tasks</Name>
     </ProjectReference>
     <ProjectReference Include="..\SingleSand.TcpServer\SingleSand.TcpServer.csproj">
       <Project>{80270C4C-961B-4463-AA65-BAA224DC571F}</Project>

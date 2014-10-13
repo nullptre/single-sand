@@ -36,7 +36,7 @@ namespace SingleSand.Samples.Tasks
 					ConsoleKey key;
 					do
 					{
-						key = await Task.Run(() => Console.ReadKey().Key);
+						key = await Task.Run(() => Console.ReadKey().Key, cancellation.Token);
 
 						if (key == ConsoleKey.Q)
 						{

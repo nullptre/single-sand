@@ -23,6 +23,7 @@ namespace SingleSand.Samples.Messages
 
 		/// <summary>
 		/// Initializes a formatter. This method should be called before the first call to <see cref="Serialize{T}"/> and <see cref="Deserialize{T}"/>.
+		/// TODO replace it with more elegant solution because it does not works correctly when some assebly is not loaded.
 		/// </summary>
         public static void SetUp()
         {

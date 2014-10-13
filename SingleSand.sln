@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.Amq.Cont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.TcpServer.Client", "SingleSand.Samples.TcpServer.Client\SingleSand.Samples.TcpServer.Client.csproj", "{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.Amq.Server", "SingleSand.Samples.Amq.Server\SingleSand.Samples.Amq.Server.csproj", "{987C94F6-DAA5-44AD-AE33-61E8B16C85F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.Amq.Client", "SingleSand.Samples.Amq.Client\SingleSand.Samples.Amq.Client.csproj", "{21DA5337-4949-45F2-99FE-4416EBA721D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,14 @@ Global
 		{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{987C94F6-DAA5-44AD-AE33-61E8B16C85F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{987C94F6-DAA5-44AD-AE33-61E8B16C85F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{987C94F6-DAA5-44AD-AE33-61E8B16C85F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{987C94F6-DAA5-44AD-AE33-61E8B16C85F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21DA5337-4949-45F2-99FE-4416EBA721D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21DA5337-4949-45F2-99FE-4416EBA721D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21DA5337-4949-45F2-99FE-4416EBA721D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21DA5337-4949-45F2-99FE-4416EBA721D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

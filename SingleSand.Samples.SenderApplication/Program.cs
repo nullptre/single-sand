@@ -25,7 +25,7 @@ namespace SingleSand.Samples.SenderApplication
             _clientName = args[0];
 
             Console.WriteLine("Starting Sender App");
-            Tasks.Utils.Run(Run, true);
+            Tasks.EventLoop.Run(Run, true);
             Console.WriteLine("App exit");
         }
 

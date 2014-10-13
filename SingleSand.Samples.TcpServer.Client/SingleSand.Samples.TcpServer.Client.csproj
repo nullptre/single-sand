@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3066A26A-2998-4C71-98EA-F3FA0E81A4CE}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SingleSand.Tasks</RootNamespace>
-    <AssemblyName>SingleSand.Tasks</AssemblyName>
+    <RootNamespace>SingleSand.Samples.TcpServer.Client</RootNamespace>
+    <AssemblyName>SingleSand.Samples.TcpServer.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,6 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
@@ -42,12 +53,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingleThreadSynchronizationContext.cs" />
-    <Compile Include="EventLoop.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SingleSand.Samples.Messages\SingleSand.Samples.Messages.csproj">
+      <Project>{9404bea7-4235-40af-8fc3-675500164dd2}</Project>
+      <Name>SingleSand.Samples.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingleSand.Samples.TcpServer.Contracts\SingleSand.Samples.TcpServer.Contracts.csproj">
+      <Project>{667b67e8-70fd-4823-936d-84d453fc2d52}</Project>
+      <Name>SingleSand.Samples.TcpServer.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingleSand.Tasks\SingleSand.Tasks.csproj">
+      <Project>{3066a26a-2998-4c71-98ea-f3fa0e81a4ce}</Project>
+      <Name>SingleSand.Tasks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingleSand.Utils\SingleSand.Utils.csproj">
+      <Project>{2B2A7797-99F6-4024-9C36-989124440828}</Project>
+      <Name>SingleSand.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

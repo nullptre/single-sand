@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.Messages
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.Amq.Contracts", "SingleSand.Samples.Amq.Contracts\SingleSand.Samples.Amq.Contracts.csproj", "{5EA55D2E-CED8-460F-99F8-180CD6B6AD4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleSand.Samples.TcpServer.Client", "SingleSand.Samples.TcpServer.Client\SingleSand.Samples.TcpServer.Client.csproj", "{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{5EA55D2E-CED8-460F-99F8-180CD6B6AD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EA55D2E-CED8-460F-99F8-180CD6B6AD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EA55D2E-CED8-460F-99F8-180CD6B6AD4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13DE3C3A-6466-4E96-BE51-254A1F4E58D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

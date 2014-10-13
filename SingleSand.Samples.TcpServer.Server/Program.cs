@@ -11,34 +11,32 @@ namespace SingleSand.Samples.TcpServer.Server
 {
 	class Program
 	{
-		private static IUnityContainer _container;
-		private static ITcpServer _tcpServer;
-		private static CancellationTokenSource _cancellation;
-
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Starting Tcp Server App in thread {0}", Thread.CurrentThread.ManagedThreadId);
-			Tasks.Utils.Run(Run, true);
+			Tasks.EventLoop.Run(Run, true);
 			Console.WriteLine("App exit");
 		}
 
 		private static async Task Run()
 		{
-			using (_container = Bootsrap())
-			using (_tcpServer = _container.Resolve<ITcpServerFactory>().Get(IPAddress.Parse("127.0.0.1"), 10345))
-			using (_cancellation = new CancellationTokenSource())
+			using (var container = Bootsrap())
+			using (var tcpServer = container.Resolve<ITcpServerFactory>().Get(IPAddress.Parse("127.0.0.1"), 10345))
+			using (var cancellation = new CancellationTokenSource())
 			{
-				var tcpServerTask = _tcpServer.ListenIncomingClients(_cancellation.Token);
+				var tcpServerTask = tcpServer.ListenIncomingClients(cancellation.Token);
+				var userInterationTask = AcceptUserInput(cancellation);
 
-				var finishedTask = await Task.WhenAny(AcceptUserInput(), tcpServerTask);
-				await finishedTask; //useful in case of error
+				var finishedTask = await Task.WhenAny(userInterationTask, tcpServerTask);
+				await finishedTask; //this line throws error if any
+
 				if (finishedTask != tcpServerTask)
+					//let tcpServerTask finish corretly
 					await tcpServerTask;
 			}
-			_tcpServer = null;
 		}
 
-		private static async Task AcceptUserInput()
+		private static async Task AcceptUserInput(CancellationTokenSource cancellation)
 		{
 			try
 			{
@@ -50,11 +48,11 @@ namespace SingleSand.Samples.TcpServer.Server
 			}
 			finally
 			{
-				_cancellation.Cancel();
+				cancellation.Cancel();
 			}
 		}
 
-		static IUnityContainer Bootsrap()
+		private static IUnityContainer Bootsrap()
 		{
 			var c = new UnityContainer();
 			Bootstrapper.SetUp(c);

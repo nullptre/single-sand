@@ -53,11 +53,11 @@ namespace SingleSand.Utils.Serialization
 
             //step 2: write data lenght field
             var dataSizeBuffer = BitConverter.GetBytes(buffer.Length);
-            await output.WriteAsync(dataSizeBuffer, 0, dataSizeBuffer.Length)
+            await output.WriteAsync(dataSizeBuffer, 0, dataSizeBuffer.Length, cancellationToken)
                 .CancelWith(() => { throw new TaskCanceledException(); }, cancellationToken);
 
             //step 3: write rest data
-            await output.WriteAsync(buffer, 0, buffer.Length);
+            await output.WriteAsync(buffer, 0, buffer.Length, cancellationToken);
         }
     }
 }

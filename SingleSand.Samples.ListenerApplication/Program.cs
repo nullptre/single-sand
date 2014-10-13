@@ -23,7 +23,7 @@ namespace SingleSand.Samples.ListenerApplication
         static void Main(string[] args)
         {
             Console.WriteLine("Starting Listener App in thread {0}", Thread.CurrentThread.ManagedThreadId);
-            Tasks.Utils.Run(Run, true);
+            Tasks.EventLoop.Run(Run, true);
             Console.WriteLine("App exit");
         }
 

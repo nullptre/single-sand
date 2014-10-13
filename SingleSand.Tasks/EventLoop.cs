@@ -5,9 +5,9 @@ using NLog;
 
 namespace SingleSand.Tasks
 {
-    public static class Utils
+    public static class EventLoop
     {
-        private static readonly Logger Log = LogManager.GetLogger("Runtime");
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
 		/// Creates new event loop on current thread an runs <paramref name="mainTask"/> on it.
@@ -30,9 +30,9 @@ namespace SingleSand.Tasks
                         }
 						catch (Exception exc)
 						{
-							//in case of error in initial task it should be logged only
-							// because current synchronization context has to be running till application end
 							Log.FatalException("Main task failed in event loop", exc);
+							// in case of error in initial task it should be logged
+							// because the error is not thrown till the event loop finishes,
 							throw;
 						}
 						finally
@@ -41,7 +41,7 @@ namespace SingleSand.Tasks
 								context.Cancel();
                         }
                     };
-            var task = mainAsyncFunc();//this will post the task to current SynchronizationContext
+            var task = mainAsyncFunc(); //this will post the task to current SynchronizationContext
 
             Log.Info("Starting event loop on thread {0}", Thread.CurrentThread.ManagedThreadId);
             context.RunMessageLoop();

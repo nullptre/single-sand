@@ -21,7 +21,7 @@ namespace SingleSand.Samples.Tasks
 			Log.Info("Starting App");
 
 			//start an event loop on current thread and 
-			Utils.Run(MainMain, true);
+			EventLoop.Run(MainMain, true);
 			Log.Info("App exit");
 		}
 

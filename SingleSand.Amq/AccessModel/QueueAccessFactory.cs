@@ -2,16 +2,38 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SingleSand.Amq.QueueStreaming;
+using SingleSand.Amq.Rmq;
+using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Amq.AccessModel
 {
-    public class QueueAccessFactory : IQueueAccessFactory
+	/// <summary>
+	/// A facade for accessing message queues
+	/// </summary>
+    public class QueueAccessFactory : IDisposable
     {
         private readonly IQueueReaderFactory _readerFactory;
         private readonly IDictionary<string, RpcListener> _rpcListeners = new Dictionary<string, RpcListener>();
         private readonly IDictionary<string, ContiniousListener> _continiousListeners = new Dictionary<string, ContiniousListener>();
         private readonly IQueueWriterFactory _writerFactory;
         private readonly IDictionary<string, Publisher> _publishers = new Dictionary<string, Publisher>();
+
+		private static QueueAccessFactory _default;
+
+		public static QueueAccessFactory Default
+		{
+			get
+			{
+				if (_default == null)
+					_default = new QueueAccessFactory(new DefaultSerializer());
+				return _default;
+			}
+		}
+
+		public QueueAccessFactory(ISerializer serializer)
+			: this(new RmqReaderFactory(serializer), new RmqWriterFactory(serializer))
+		{
+		}
 
         public QueueAccessFactory(IQueueReaderFactory readerFactory, IQueueWriterFactory writerFactory)
         {
@@ -56,5 +78,20 @@ namespace SingleSand.Amq.AccessModel
             return result;
         }
 
+		public void Dispose()
+		{
+			if (_readerFactory != null)
+				_readerFactory.Dispose();
+			if (_writerFactory != null)
+				_writerFactory.Dispose();
+			foreach (var l in _rpcListeners.Values)
+			{
+				l.Dispose();
+			}
+			foreach (var l in _continiousListeners.Values)
+			{
+				l.Dispose();
+			}
+		}
     }
 }

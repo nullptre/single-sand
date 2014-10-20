@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using NLog;
 using RabbitMQ.Client;
-using SingleSand.Amq;
 using SingleSand.Amq.AccessModel;
 using SingleSand.Samples.Amq.Contracts;
 using SingleSand.Samples.Messages;
@@ -17,6 +16,7 @@ namespace SingleSand.Samples.Amq.Client
 	class Program
 	{
 		private const string ServerQueueName = "testQ1-processor";
+		private const string ClientQueueName = "testQ1-client-{0}";
 
 		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
@@ -35,13 +35,13 @@ namespace SingleSand.Samples.Amq.Client
 
 		private static async Task Run()
 		{
-			var clientQueueName = "testQ1-client-" + Process.GetCurrentProcess().Id;
+			var clientQueueName = string.Format(ClientQueueName, Process.GetCurrentProcess().Id);
 
 			using (var container = Bootsrap(clientQueueName))
 			using (var cancellation = new CancellationTokenSource())
-			using (var rpcListener = container.Resolve<IQueueAccessFactory>().GetRpc(clientQueueName))
+			using (var rpcListener = container.Resolve<QueueAccessFactory>().GetRpc(clientQueueName))
 			{
-				var publisher = container.Resolve<IQueueAccessFactory>().GetPublisher(ServerQueueName);
+				var publisher = container.Resolve<QueueAccessFactory>().GetPublisher(ServerQueueName);
 
 				try
 				{
@@ -84,9 +84,9 @@ namespace SingleSand.Samples.Amq.Client
 		private static IUnityContainer Bootsrap(string clientQueueName)
 		{
 			var c = new UnityContainer();
-			Bootstrapper.SetUp(c);
-			Formatter.SetUp();
+			c.RegisterType<QueueAccessFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(typeof(ISerializer)));
 			c.RegisterType<ISerializer, Formatter>(new ContainerControlledLifetimeManager());
+			Formatter.SetUp();
 			CreateQueue(clientQueueName);
 			return c;
 		}

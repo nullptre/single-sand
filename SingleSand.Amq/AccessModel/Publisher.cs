@@ -3,7 +3,7 @@ using SingleSand.Amq.QueueStreaming;
 
 namespace SingleSand.Amq.AccessModel
 {
-    public class Publisher : IPublisher
+	internal class Publisher : IPublisher
     {
         private readonly IQueueWriter _queueWriter;
 

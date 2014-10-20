@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using NLog;
 using RabbitMQ.Client;
-using SingleSand.Amq;
 using SingleSand.Amq.AccessModel;
 using SingleSand.Samples.Amq.Contracts;
 using SingleSand.Samples.Messages;
@@ -31,7 +30,7 @@ namespace SingleSand.Samples.Amq.Server
 		private static async Task Run()
 		{
 			using (_container = Bootsrap())
-			using (_container.Resolve<IQueueAccessFactory>().GetContinious(InputQueueName, OnMessage))
+			using (_container.Resolve<QueueAccessFactory>().GetContinious(InputQueueName, OnMessage))
 			using (_cancellation = new CancellationTokenSource())
 			{
 				await AcceptUserInput();
@@ -58,7 +57,7 @@ namespace SingleSand.Samples.Amq.Server
 		{
 			var message = (TextMessage)m;
 			Log.Info("Message received: {0}, thread {1}", message.Text, Thread.CurrentThread.ManagedThreadId);
-			var publisher = _container.Resolve<IQueueAccessFactory>().GetPublisher(m.ResponseQueueName);
+			var publisher = _container.Resolve<QueueAccessFactory>().GetPublisher(m.ResponseQueueName);
 			await Task.Delay(TimeSpan.FromSeconds(3), _cancellation.Token);
 			await
 				publisher.Push(new TextMessage
@@ -72,15 +71,15 @@ namespace SingleSand.Samples.Amq.Server
 		static IUnityContainer Bootsrap()
 		{
 			var c = new UnityContainer();
-			Bootstrapper.SetUp(c);
-			Formatter.SetUp();
+			c.RegisterType<QueueAccessFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(typeof(ISerializer)));
+			c.RegisterType<ISerializer, Formatter>(new ContainerControlledLifetimeManager());
 
+			Formatter.SetUp();
 			// below is a workaround for formatter initialization problem.
 			// we should let the formatter know about expected messages.
 			// to do so we need to load the assembly before any message comes.
 			typeof (TextMessage).GetConstructors();
 
-			c.RegisterType<ISerializer, Formatter>(new ContainerControlledLifetimeManager());
 			CreateQueue(InputQueueName);
 			return c;
 		}

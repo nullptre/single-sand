@@ -5,9 +5,9 @@ namespace SingleSand.TcpServer
 {
 	internal class ClientSessionFactory : IClientSessionFactory
     {
-        public async Task<IClientSession> Get(TcpClient tcpClient, IClientHandler handler)
+        public Task<IClientSession> Get(TcpClient tcpClient, IClientHandler handler)
         {
-            return new ClientSession(tcpClient, handler);
+			return Task.FromResult<IClientSession>(new ClientSession(tcpClient, handler));
         }
     }
 }

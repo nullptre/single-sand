@@ -2,20 +2,30 @@
 
 namespace SingleSand.TcpServer
 {
-	internal class TcpServerFactory : ITcpServerFactory
-    {
-        private readonly IClientSessionFactory _sessionFactory;
-        private readonly IClientHandlerFactory _handlerFactory;
+	public class TcpServerFactory
+	{
+		private static TcpServerFactory _default;
 
-        public TcpServerFactory(IClientSessionFactory sessionFactory, IClientHandlerFactory handlerFactory)
+        private readonly IClientSessionFactory _sessionFactory;
+
+		public static TcpServerFactory Default
+		{
+			get
+			{
+				if (_default == null)
+					_default = new TcpServerFactory(new ClientSessionFactory());
+				return _default;
+			}
+		}
+
+        public TcpServerFactory(IClientSessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
-            _handlerFactory = handlerFactory;
         }
 
-        public ITcpServer Get(IPAddress ip, int port)
+		public ITcpServer Get(IPAddress ip, int port, IClientHandlerFactory handlerFactory)
         {
-            return new TcpServer(ip, port, _sessionFactory, _handlerFactory);
+            return new TcpServer(ip, port, _sessionFactory, handlerFactory);
         }
     }
 }

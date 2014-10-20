@@ -21,7 +21,8 @@ namespace SingleSand.Samples.TcpServer.Server
 		private static async Task Run()
 		{
 			using (var container = Bootsrap())
-			using (var tcpServer = container.Resolve<ITcpServerFactory>().Get(IPAddress.Parse("127.0.0.1"), 10345))
+			using (var tcpServer = container.Resolve<TcpServerFactory>()
+				.Get(IPAddress.Parse("127.0.0.1"), 10345, container.Resolve<IClientHandlerFactory>()))
 			using (var cancellation = new CancellationTokenSource())
 			{
 				var tcpServerTask = tcpServer.ListenIncomingClients(cancellation.Token);
@@ -55,7 +56,7 @@ namespace SingleSand.Samples.TcpServer.Server
 		private static IUnityContainer Bootsrap()
 		{
 			var c = new UnityContainer();
-			Bootstrapper.SetUp(c);
+			c.RegisterInstance(TcpServerFactory.Default);
 			Formatter.SetUp();
 			c.RegisterType<ISerializer, Formatter>(new ContainerControlledLifetimeManager());
 			c.RegisterType<IClientHandlerFactory, SimpleClientHandler.Factory>(new ContainerControlledLifetimeManager());

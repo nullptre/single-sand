@@ -59,7 +59,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SingleSand.Utils\SingleSand.Utils.csproj">
       <Project>{2B2A7797-99F6-4024-9C36-989124440828}</Project>
-      <Name>Utils</Name>
+      <Name>SingleSand.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

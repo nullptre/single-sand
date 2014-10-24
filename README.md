@@ -107,21 +107,21 @@ process using Async Message Queue.
 
 Solution is divided into two secions
 
-* Platform
+### Platform
 
 This section contains core assemblies for application development (SDK)
-  ** SingleSand.Tasks - event loop implementation
-  ** SingleSand.TcpServer - asynchronous TCP handler based on System.Net.Sockets
-  ** SingleSand.Amq - asychronous publisher and consumer around RabbitMQ
+  * SingleSand.Tasks - event loop implementation
+  * SingleSand.TcpServer - asynchronous TCP handler based on System.Net.Sockets
+  * SingleSand.Amq - asychronous publisher and consumer around RabbitMQ
 
-* Samples
+### Samples
 
 Examples of various application types built on the planform
-  ** SingleSand.Samples.Tasks - basic console sample.
-  ** SingleSand.Samples.TcpServer - TCP client-server. Single server, many clients.
-  ** SingleSand.Samples.Amq.Server - RabbitMQ publisher-consumer. Many publishers, many consumers, all connected to the same queue.
-  ** SingleSand.Samples.Web - ASP.NET web application. Implemented over async MVC actions.
-  ** SingleSand.Samples.WinService - Windows service basic sample.
+  * SingleSand.Samples.Tasks - basic console sample.
+  * SingleSand.Samples.TcpServer - TCP client-server. Single server, many clients.
+  * SingleSand.Samples.Amq.Server - RabbitMQ publisher-consumer. Many publishers, many consumers, all connected to the same queue.
+  * SingleSand.Samples.Web - ASP.NET web application. Implemented over async MVC actions.
+  * SingleSand.Samples.WinService - Windows service basic sample.
 
 # Similar projects
 

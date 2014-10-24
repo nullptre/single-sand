@@ -96,7 +96,7 @@ At the moment they are
 
 # Restrictions
 
-As any of event-loop emplementations it requires single event handler is short-running.
+As any of event-loop emplementations it is required that a single event handler is short-running.
 While developing an app this has to be kept in mind, otherwise the handler may prevent other handlers to
 execute. All long-runnint cumputations have to be executed outside the event loop. There are
 several ways to do that: the simplest Task.Run or more advanced like delegating the task to remote
@@ -110,18 +110,18 @@ Solution is divided into two secions
 * Platform
 
 This section contains core assemblies for application development (SDK)
-  * SingleSand.Tasks - event loop implementation
-  * SingleSand.TcpServer - asynchronous TCP handler based on System.Net.Sockets
-  * SingleSand.Amq - asychronous publisher and consumer around RabbitMQ
+  ** SingleSand.Tasks - event loop implementation
+  ** SingleSand.TcpServer - asynchronous TCP handler based on System.Net.Sockets
+  ** SingleSand.Amq - asychronous publisher and consumer around RabbitMQ
 
 * Samples
 
-Examples of various application types build on the planform
-  * SingleSand.Samples.Tasks - basic console sample.
-  * SingleSand.Samples.TcpServer - TCP client-server. Single server, many clients.
-  * SingleSand.Samples.Amq.Server - RabbitMQ publisher-consumer. Many publishers, many consumers, all connected to the same queue.
-  * SingleSand.Samples.Web - ASP.NET web application. Implemented over async MVC actions.
-  * SingleSand.Samples.WinService - Windows service basic sample.
+Examples of various application types built on the planform
+  ** SingleSand.Samples.Tasks - basic console sample.
+  ** SingleSand.Samples.TcpServer - TCP client-server. Single server, many clients.
+  ** SingleSand.Samples.Amq.Server - RabbitMQ publisher-consumer. Many publishers, many consumers, all connected to the same queue.
+  ** SingleSand.Samples.Web - ASP.NET web application. Implemented over async MVC actions.
+  ** SingleSand.Samples.WinService - Windows service basic sample.
 
 # Similar projects
 

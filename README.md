@@ -3,38 +3,130 @@ single-sand
 
 # Intro
 
-SingleSand is an experimental project which maps the idea of single-threaded
-processing to a set of popular tools which together help to build asychronous,
-scalable, simple and powerful applications.
-It is fully based on C# async programming model therefore can act as a base for
-most async applications as well as a bridge between different application layers,
-see list of samples below.
+SingleSand is an experimental project based on [idea of single-threaded processing (or event loop)](http://berb.github.io/diploma-thesis/original/055_events.html).
+Main benefit is that you don't need to write andy cross-thread synchronization logic, as a result your
+code looks simpler, is more readable and easier to debug. You can concentrate your efforts on writing business-related tasks.
 
-# The goal
+The good example of such approach is [Node.js](http://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js) that successfully
+handles parallel requests from many clients asynchronously. Node.js is not the only example,
+there are also [eventmachine](https://github.com/eventmachine/eventmachine), [kayak](https://github.com/kayak/kayak) and more.
 
-**Code simplicity over vertical scalability.** The main advantage of
-single-threading model is absence of synchronization taht results in
-code simplicity. On the other hand, it reduces the vertical scalability
-but does not affect horizontal scalability. Since the horizontal
-scalability is much more preferred in distributes systems, it's not a con.
+SingleSand is fully based on C# async programming model and TPL therefore can act as a base for
+most async applications as well as a bridge between different application layers. Theoretically
+the event loop can be plugged to any application type, multithreaded or not it doesn't matter,
+the only requirement is to allocate some thread for the event loop. See list of samples below.
 
-
-Supported tools
-===========================
-
-TODO
+SingleSand connects several popular development tools (like Async Message Queues, TCP transport, ASP.NET handlers, etc.)
+to the event loop where all business tasks run and implements interfaces for interaction between tasks and tools.
 
 
-Project structure
-========================
+# Getting started
 
-## Platform
+Hello world example
 
-## Samples
+```
+// You just need to post an initial async action to the event loop.
+// EventLoop.Run method utilizes current thread and runs the event loop on it.
+EventLoop.Run(
+    async () =>
+    {
+        using (var reader = File.OpenText("hello_world.txt"))
+        {
+            // This does not blocks the evnet loop
+            var text = await reader.ReadToEndAsync();
 
-TODO
+            Console.Write(text);
+        }
+    },
+    true /*this means that the event loop should stop after the inital action completes*/);
+```
 
-Benchmark
-========================
+Another example, demonstrates parallel access to shared resources
+
+```
+var nonThreadSafeVariable = new List<string>();
+var rnd = new Random();
+
+EventLoop.Run(
+    async () =>
+    {
+        Func<int, Task> childTask = async () =>
+        {
+            var text = string.Format("sample-{0}", i);
+
+            //note taht this code does not require any thread syncronization statements,
+            //it is safe to accees the variable directly
+            if (!nonThreadSafeVariable.Contains(text))
+            {
+                //simulate divergence
+                await Task.Delay(rnd.Next(10));
+
+                nonThreadSafeVariable.Add(text);
+            }
+
+            //and writing to console is also safe
+            Console.WriteLine("Hello, this is task #{0}", i);
+        };
+
+        var parallelTasks = Enumerable.Range(0, 1000).Select(childTask).ToArray();
+
+        await Task.WhenAll(parallelTasks);
+    },
+    true);
+```
+
+More advanced examples are listed in section below.
+
+# Supported tools
+
+At the moment it includes
+* Async Message Queue based on RabbitMQ
+* TCP Server based on System.Net.Sockets
+
+
+# Supported application types
+
+* ASP.NET async web applications
+* Windows services
+* Console applications
+* Theoretically it is pluggable to any other application type
+
+
+# Restrictions
+
+As any of event-loop emplementations it requires that single event handler is limited in CPU time.
+While developing an app this has to be kept in mind, otherwise the handler may prevent other handlers to
+execute. All long runnint cumputations have to be executed outside the event loop. There are
+several ways to do that: the simplest Task.Run or more advanced like delegating the task to remote
+process using Async Message Queue.
+
+
+# Project structure
+
+Solution is divided into two secions
+
+* Platform
+
+This section contains core assemblies for application development
+  * SingleSand.Tasks - event loop implementation
+  * SingleSand.TcpServer - asynchronous TCP handler based on System.Net.Sockets
+  * SingleSand.Amq - asychronous publisher and consumer around RabbitMQ
+
+* Samples
+
+Examples of various application types build on the planform
+  * SingleSand.Samples.Tasks - basic console sample.
+  * SingleSand.Samples.TcpServer - TCP client-server. Single server, many clients.
+  * SingleSand.Samples.Amq.Server - RabbitMQ publisher-consumer. Many publishers, many consumers, all connected to the same queue.
+  * TODO - ASP.NET web application. Implemented over async MVC actions.
+  * TODO - Windows service basic sample.
+
+# Similar projects
+
+* https://github.com/jacksonh/manos
+* https://github.com/blesh/ALE
+* http://www.kendar.org/?p=/dotnet/nodecs
+
+# Benchmark
 
 TODO

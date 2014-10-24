@@ -32,7 +32,7 @@ namespace SingleSand.Samples.Web.Controllers
 
 		    using (var client = new HttpClient())
 		    {
-			    var remoteResponse = await client.GetAsync(string.Format("http://google.com?q=who+i+am+{0}", clientIp), cancellation);
+				var remoteResponse = await client.GetAsync(string.Format("http://www.bing.com/search?q=who+i+am+{0}", clientIp), cancellation);
 			    if (remoteResponse != null && remoteResponse.IsSuccessStatusCode
 					&& (await remoteResponse.Content.ReadAsStringAsync())
 							.Contains("attack"))

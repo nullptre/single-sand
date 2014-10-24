@@ -5,12 +5,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
+using NLog;
 using SingleSand.Tasks;
 
 namespace SingleSand.Samples.Web
 {
 	public class MvcApplication : System.Web.HttpApplication
 	{
+		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
 		/// <summary>
 		/// CancellationTokenSource is used as global switch that allows to terminate all pending request handlers,
 		/// for examplen on app shutdown
@@ -67,6 +70,8 @@ namespace SingleSand.Samples.Web
 
 		protected void Application_End(object sender, EventArgs e)
 		{
+			Log.Info("Web app is shutting down");
+
 			_appCancellationTokenSource.Cancel();
 		}
 

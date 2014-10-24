@@ -17,14 +17,14 @@ the event loop can be plugged to any application type, multithreaded or not it d
 the only requirement is to allocate some thread for the event loop. See list of samples below.
 
 SingleSand connects several popular development tools (like Async Message Queues, TCP transport, ASP.NET handlers, etc.)
-to the event loop where all business tasks run and implements interfaces for interaction between tasks and tools.
+to the event loop where all business tasks run and implements interfaces for interaction between the tasks and tools.
 
 
 # Getting started
 
 Hello world example
 
-```
+```csharp
 // You just need to post an initial async action to the event loop.
 // EventLoop.Run method utilizes current thread and runs the event loop on it.
 EventLoop.Run(
@@ -43,7 +43,7 @@ EventLoop.Run(
 
 Another example, demonstrates parallel access to shared resources
 
-```
+```csharp
 var nonThreadSafeVariable = new List<string>();
 var rnd = new Random();
 
@@ -75,7 +75,7 @@ EventLoop.Run(
     true);
 ```
 
-More advanced examples are listed in section below.
+Advanced examples are in sampe projects, see below.
 
 # Supported tools
 
@@ -94,9 +94,9 @@ At the moment it includes
 
 # Restrictions
 
-As any of event-loop emplementations it requires that single event handler is limited in CPU time.
+As any of event-loop emplementations it requires single event handler is short-running.
 While developing an app this has to be kept in mind, otherwise the handler may prevent other handlers to
-execute. All long runnint cumputations have to be executed outside the event loop. There are
+execute. All long-runnint cumputations have to be executed outside the event loop. There are
 several ways to do that: the simplest Task.Run or more advanced like delegating the task to remote
 process using Async Message Queue.
 
@@ -107,7 +107,7 @@ Solution is divided into two secions
 
 * Platform
 
-This section contains core assemblies for application development
+This section contains core assemblies for application development (SDK)
   * SingleSand.Tasks - event loop implementation
   * SingleSand.TcpServer - asynchronous TCP handler based on System.Net.Sockets
   * SingleSand.Amq - asychronous publisher and consumer around RabbitMQ
@@ -118,8 +118,8 @@ Examples of various application types build on the planform
   * SingleSand.Samples.Tasks - basic console sample.
   * SingleSand.Samples.TcpServer - TCP client-server. Single server, many clients.
   * SingleSand.Samples.Amq.Server - RabbitMQ publisher-consumer. Many publishers, many consumers, all connected to the same queue.
-  * TODO - ASP.NET web application. Implemented over async MVC actions.
-  * TODO - Windows service basic sample.
+  * SingleSand.Samples.Web - ASP.NET web application. Implemented over async MVC actions.
+  * SingleSand.Samples.WinService - Windows service basic sample.
 
 # Similar projects
 

@@ -32,13 +32,13 @@ EventLoop.Run(
     {
         using (var reader = File.OpenText("hello_world.txt"))
         {
-            // This does not blocks the evnet loop
+            // This does not block the evnet loop
             var text = await reader.ReadToEndAsync();
 
             Console.Write(text);
         }
     },
-    true /*this means that the event loop should stop after the inital action completes*/);
+    true /*this means that the event loop should stop after inital action completes*/);
 ```
 
 Another example, demonstrates parallel access to shared resources
@@ -68,8 +68,10 @@ EventLoop.Run(
             Console.WriteLine("Hello, this is task #{0}", i);
         };
 
+        //start all tasks in parallel
         var parallelTasks = Enumerable.Range(0, 1000).Select(childTask).ToArray();
 
+        //and wait for all
         await Task.WhenAll(parallelTasks);
     },
     true);
@@ -79,7 +81,7 @@ Advanced examples are in sampe projects, see below.
 
 # Supported tools
 
-At the moment it includes
+At the moment they are
 * Async Message Queue based on RabbitMQ
 * TCP Server based on System.Net.Sockets
 

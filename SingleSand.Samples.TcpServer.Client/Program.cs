@@ -10,14 +10,14 @@ using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Samples.TcpServer.Client
 {
-	class Program
-	{
+    class Program
+    {
         private static string _clientName;
 
         static void Main(string[] args)
         {
-	        if (args.Length == 0)
-		        throw new ArgumentNullException("args", "Client name should be supplied as the first argument");
+            if (args.Length == 0)
+                throw new ArgumentNullException("args", "Client name should be supplied as the first argument");
             _clientName = args[0];
 
             Console.WriteLine("Starting Tcp Client App for client {0}", _clientName);
@@ -34,14 +34,14 @@ namespace SingleSand.Samples.TcpServer.Client
                 Console.WriteLine("Tcp Connection created");
 
                 var tcpInterationTask = AcceptTcpResponses(tcp, container, cancellation.Token);
-	            var userInterationTask = AcceptUserInput(container, tcp, cancellation);
+                var userInterationTask = AcceptUserInput(container, tcp, cancellation);
 
-	            var finishedTask = await Task.WhenAny(userInterationTask, tcpInterationTask);
+                var finishedTask = await Task.WhenAny(userInterationTask, tcpInterationTask);
                 await finishedTask; //this line throws error if any
 
                 if (finishedTask != tcpInterationTask)
-					//let tcpInterationTask finish corretly
-					await tcpInterationTask;
+                    //let tcpInterationTask finish corretly
+                    await tcpInterationTask;
             }
         }
 
@@ -56,28 +56,28 @@ namespace SingleSand.Samples.TcpServer.Client
 
                     switch (key)
                     {
-						case ConsoleKey.A:
-		                    await
-			                    c.Resolve<ISerializer>()
-				                    .SerializeAsync(new ApiCommandWithName {ClientName = _clientName}, tcp.GetStream(),
-					                    cancellation.Token);
-		                    break;
-	                    case ConsoleKey.C:
-		                    await
-			                    c.Resolve<ISerializer>()
-				                    .SerializeAsync(new ApiCommandWithName {Text = "CalculateAndRespond"}, tcp.GetStream(),
-					                    cancellation.Token);
-		                    break;
-	                    case ConsoleKey.E:
-		                    await
-			                    c.Resolve<ISerializer>()
-				                    .SerializeAsync(new ApiCommandWithName {Text = "Quit"}, tcp.GetStream(),
-					                    cancellation.Token);
-		                    break;
+                        case ConsoleKey.A:
+                            await
+                                c.Resolve<ISerializer>()
+                                    .SerializeAsync(new ApiCommandWithName {ClientName = _clientName}, tcp.GetStream(),
+                                        cancellation.Token);
+                            break;
+                        case ConsoleKey.C:
+                            await
+                                c.Resolve<ISerializer>()
+                                    .SerializeAsync(new ApiCommandWithName {Text = "CalculateAndRespond"}, tcp.GetStream(),
+                                        cancellation.Token);
+                            break;
+                        case ConsoleKey.E:
+                            await
+                                c.Resolve<ISerializer>()
+                                    .SerializeAsync(new ApiCommandWithName {Text = "Quit"}, tcp.GetStream(),
+                                        cancellation.Token);
+                            break;
                     }
 
                 }
-				while (key != ConsoleKey.Q && !cancellation.Token.IsCancellationRequested);
+                while (key != ConsoleKey.Q && !cancellation.Token.IsCancellationRequested);
             }
             finally
             {
@@ -115,9 +115,9 @@ namespace SingleSand.Samples.TcpServer.Client
         static IUnityContainer Bootsrap()
         {
             var c = new UnityContainer();
-			Messages.Formatter.SetUp();
-			c.RegisterType<ISerializer, Messages.Formatter>(new ContainerControlledLifetimeManager());
-			return c;
+            Messages.Formatter.SetUp();
+            c.RegisterType<ISerializer, Messages.Formatter>(new ContainerControlledLifetimeManager());
+            return c;
         }
     }
 }

@@ -49,11 +49,11 @@ namespace SingleSand.Amq.Rmq
                         Log.Warn("Receive from {0} failed: {1}", QueueName, e);
                         throw;
                     }
-					finally
-					{
-						_channel.BasicAck(args.DeliveryTag, false);
-					}
-				};
+                    finally
+                    {
+                        _channel.BasicAck(args.DeliveryTag, false);
+                    }
+                };
             //the event handler should run in captured SynchronizationContext
             Task.Factory.StartNew(asyncChain, CancellationToken.None, TaskCreationOptions.None, _taskScheduler);
         }

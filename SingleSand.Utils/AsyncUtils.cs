@@ -11,7 +11,7 @@ namespace SingleSand.Utils
     {
         private static Task InfiniteTask(CancellationToken cancellation)
         {
-			return Task.Delay(Timeout.Infinite, cancellation);
+            return Task.Delay(Timeout.Infinite, cancellation);
         }
 
         public static async Task<T> CancelWith<T>(this Task<T> operation, Func<T> cancellationResult, CancellationToken cancellation)

@@ -10,21 +10,21 @@ using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Samples.Messages
 {
-	/// <summary>
-	/// This is an inplementation of <see cref="ISerializer"/> based on Protocol Buffers (https://code.google.com/p/protobuf-net/)
-	/// <seealso cref="SerializableTypesMappingAttribute"/>
-	/// </summary>
-	public class Formatter : ISerializer
+    /// <summary>
+    /// This is an inplementation of <see cref="ISerializer"/> based on Protocol Buffers (https://code.google.com/p/protobuf-net/)
+    /// <seealso cref="SerializableTypesMappingAttribute"/>
+    /// </summary>
+    public class Formatter : ISerializer
     {
         private const int SyncTimeoutSeconds = 1;
         private static readonly IDictionary<ulong, Type> Mappings = new Dictionary<ulong, Type>();
         private static readonly IDictionary<Type, ulong> ReverseMappings = new Dictionary<Type, ulong>();
         private static readonly ReaderWriterLock SyncRoot = new ReaderWriterLock();
 
-		/// <summary>
-		/// Initializes a formatter. This method should be called before the first call to <see cref="Serialize{T}"/> and <see cref="Deserialize{T}"/>.
-		/// TODO replace it with more elegant solution because it does not work correctly when on-demand loading of assemblies.
-		/// </summary>
+        /// <summary>
+        /// Initializes a formatter. This method should be called before the first call to <see cref="Serialize{T}"/> and <see cref="Deserialize{T}"/>.
+        /// TODO replace it with more elegant solution because it does not work correctly when on-demand loading of assemblies.
+        /// </summary>
         public static void SetUp()
         {
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())

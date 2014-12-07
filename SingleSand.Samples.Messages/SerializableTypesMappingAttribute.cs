@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace SingleSand.Samples.Messages
 {
-	/// <summary>
-	/// It declares an implementation of <see cref="ISerializableTypesMapping"/> mapping for available serializable types inside the assembly
-	/// </summary>
+    /// <summary>
+    /// It declares an implementation of <see cref="ISerializableTypesMapping"/> mapping for available serializable types inside the assembly
+    /// </summary>
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true, Inherited = false)]
     public class SerializableTypesMappingAttribute : Attribute
     {

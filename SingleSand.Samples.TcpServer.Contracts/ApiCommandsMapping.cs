@@ -4,7 +4,7 @@ using SingleSand.Samples.Messages;
 
 namespace SingleSand.Samples.TcpServer.Contracts
 {
-	internal class ApiCommandsMapping : ISerializableTypesMapping
+    internal class ApiCommandsMapping : ISerializableTypesMapping
     {
         public IDictionary<short, Type> TypesMapping
         {

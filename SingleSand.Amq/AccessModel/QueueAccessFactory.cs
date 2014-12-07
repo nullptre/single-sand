@@ -7,9 +7,9 @@ using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Amq.AccessModel
 {
-	/// <summary>
-	/// A facade for accessing message queues
-	/// </summary>
+    /// <summary>
+    /// A facade for accessing message queues
+    /// </summary>
     public class QueueAccessFactory : IDisposable
     {
         private readonly IQueueReaderFactory _readerFactory;
@@ -18,22 +18,22 @@ namespace SingleSand.Amq.AccessModel
         private readonly IQueueWriterFactory _writerFactory;
         private readonly IDictionary<string, Publisher> _publishers = new Dictionary<string, Publisher>();
 
-		private static QueueAccessFactory _default;
+        private static QueueAccessFactory _default;
 
-		public static QueueAccessFactory Default
-		{
-			get
-			{
-				if (_default == null)
-					_default = new QueueAccessFactory(new DefaultSerializer());
-				return _default;
-			}
-		}
+        public static QueueAccessFactory Default
+        {
+            get
+            {
+                if (_default == null)
+                    _default = new QueueAccessFactory(new DefaultSerializer());
+                return _default;
+            }
+        }
 
-		public QueueAccessFactory(ISerializer serializer)
-			: this(new RmqReaderFactory(serializer), new RmqWriterFactory(serializer))
-		{
-		}
+        public QueueAccessFactory(ISerializer serializer)
+            : this(new RmqReaderFactory(serializer), new RmqWriterFactory(serializer))
+        {
+        }
 
         public QueueAccessFactory(IQueueReaderFactory readerFactory, IQueueWriterFactory writerFactory)
         {
@@ -78,20 +78,20 @@ namespace SingleSand.Amq.AccessModel
             return result;
         }
 
-		public void Dispose()
-		{
-			if (_readerFactory != null)
-				_readerFactory.Dispose();
-			if (_writerFactory != null)
-				_writerFactory.Dispose();
-			foreach (var l in _rpcListeners.Values)
-			{
-				l.Dispose();
-			}
-			foreach (var l in _continiousListeners.Values)
-			{
-				l.Dispose();
-			}
-		}
+        public void Dispose()
+        {
+            if (_readerFactory != null)
+                _readerFactory.Dispose();
+            if (_writerFactory != null)
+                _writerFactory.Dispose();
+            foreach (var l in _rpcListeners.Values)
+            {
+                l.Dispose();
+            }
+            foreach (var l in _continiousListeners.Values)
+            {
+                l.Dispose();
+            }
+        }
     }
 }

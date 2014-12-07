@@ -7,7 +7,7 @@ using SingleSand.Amq.Sync;
 
 namespace SingleSand.Amq.AccessModel
 {
-	internal class RpcListener : IRpcListener
+    internal class RpcListener : IRpcListener
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 

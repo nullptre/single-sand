@@ -4,7 +4,7 @@ using SingleSand.Samples.Messages;
 
 namespace SingleSand.Samples.Amq.Contracts
 {
-	internal class MessagesMapping : ISerializableTypesMapping
+    internal class MessagesMapping : ISerializableTypesMapping
     {
         public IDictionary<short, Type> TypesMapping
         {
@@ -12,7 +12,7 @@ namespace SingleSand.Samples.Amq.Contracts
             { 
                 return new Dictionary<short, Type>
                 {
-	                { 1, typeof(TextMessage) }
+                    { 1, typeof(TextMessage) }
                 };
             }
         }

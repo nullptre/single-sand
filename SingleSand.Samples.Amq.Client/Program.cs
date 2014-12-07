@@ -13,94 +13,94 @@ using SingleSand.Utils.Serialization;
 
 namespace SingleSand.Samples.Amq.Client
 {
-	class Program
-	{
-		private const string ServerQueueName = "testQ1-processor";
-		private const string ClientQueueName = "testQ1-client-{0}";
+    class Program
+    {
+        private const string ServerQueueName = "testQ1-processor";
+        private const string ClientQueueName = "testQ1-client-{0}";
 
-		private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
-		private static string _clientName;
+        private static string _clientName;
 
-		static void Main(string[] args)
-		{
-			if (args.Length == 0)
-				throw new ArgumentNullException("args", "Client name should be supplied as the first argument");
-			_clientName = args[0];
+        static void Main(string[] args)
+        {
+            if (args.Length == 0)
+                throw new ArgumentNullException("args", "Client name should be supplied as the first argument");
+            _clientName = args[0];
 
-			Console.WriteLine("Starting Producer(Client) App");
-			Tasks.EventLoop.Run(Run, true);
-			Console.WriteLine("App exit");
-		}
+            Console.WriteLine("Starting Producer(Client) App");
+            Tasks.EventLoop.Run(Run, true);
+            Console.WriteLine("App exit");
+        }
 
-		private static async Task Run()
-		{
-			var clientQueueName = string.Format(ClientQueueName, Process.GetCurrentProcess().Id);
+        private static async Task Run()
+        {
+            var clientQueueName = string.Format(ClientQueueName, Process.GetCurrentProcess().Id);
 
-			using (var container = Bootsrap(clientQueueName))
-			using (var cancellation = new CancellationTokenSource())
-			using (var rpcListener = container.Resolve<QueueAccessFactory>().GetRpc(clientQueueName))
-			{
-				var publisher = container.Resolve<QueueAccessFactory>().GetPublisher(ServerQueueName);
+            using (var container = Bootsrap(clientQueueName))
+            using (var cancellation = new CancellationTokenSource())
+            using (var rpcListener = container.Resolve<QueueAccessFactory>().GetRpc(clientQueueName))
+            {
+                var publisher = container.Resolve<QueueAccessFactory>().GetPublisher(ServerQueueName);
 
-				try
-				{
-					ConsoleKey key;
-					do
-					{
-						key = await Task.Run(() => Console.ReadKey().Key, cancellation.Token);
+                try
+                {
+                    ConsoleKey key;
+                    do
+                    {
+                        key = await Task.Run(() => Console.ReadKey().Key, cancellation.Token);
 
-						if (key == ConsoleKey.Q) continue;
+                        if (key == ConsoleKey.Q) continue;
 
-						var messagesTask = Enumerable.Range(0, 10)
-							.Select(i => SendMessage(publisher, i, rpcListener, cancellation));
+                        var messagesTask = Enumerable.Range(0, 10)
+                            .Select(i => SendMessage(publisher, i, rpcListener, cancellation));
 
-						await Task.WhenAll(messagesTask);
-					} while (key != ConsoleKey.Q);
-				}
-				finally
-				{
-					cancellation.Cancel();
-				}
-			}
-		}
+                        await Task.WhenAll(messagesTask);
+                    } while (key != ConsoleKey.Q);
+                }
+                finally
+                {
+                    cancellation.Cancel();
+                }
+            }
+        }
 
-		private static async Task SendMessage(IPublisher publisher, int index, IRpcListener rpcListener, CancellationTokenSource cancellation)
-		{
-			var result = await publisher
-				.CallRemotely(
-					new TextMessage
-					{
-						Text = string.Format(
-							"Hello from Sender {0}, #{1}", _clientName, index)
-					},
-					rpcListener,
-					new ReceiveArgs(m => true, TimeSpan.FromSeconds(5),
-						cancellation.Token));
+        private static async Task SendMessage(IPublisher publisher, int index, IRpcListener rpcListener, CancellationTokenSource cancellation)
+        {
+            var result = await publisher
+                .CallRemotely(
+                    new TextMessage
+                    {
+                        Text = string.Format(
+                            "Hello from Sender {0}, #{1}", _clientName, index)
+                    },
+                    rpcListener,
+                    new ReceiveArgs(m => true, TimeSpan.FromSeconds(5),
+                        cancellation.Token));
 
-			Log.Info("Message received: {0}", result.Cast<TextMessage>().Single().Text);
-		}
+            Log.Info("Message received: {0}", result.Cast<TextMessage>().Single().Text);
+        }
 
-		private static IUnityContainer Bootsrap(string clientQueueName)
-		{
-			var c = new UnityContainer();
-			c.RegisterType<QueueAccessFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(typeof(ISerializer)));
-			c.RegisterType<ISerializer, Formatter>(new ContainerControlledLifetimeManager());
-			Formatter.SetUp();
-			CreateQueue(clientQueueName);
-			return c;
-		}
+        private static IUnityContainer Bootsrap(string clientQueueName)
+        {
+            var c = new UnityContainer();
+            c.RegisterType<QueueAccessFactory>(new ContainerControlledLifetimeManager(), new InjectionConstructor(typeof(ISerializer)));
+            c.RegisterType<ISerializer, Formatter>(new ContainerControlledLifetimeManager());
+            Formatter.SetUp();
+            CreateQueue(clientQueueName);
+            return c;
+        }
 
-		private static void CreateQueue(string queueName)
-		{
-			var factory = new ConnectionFactory { HostName = "localhost" };
-			using (var connection = factory.CreateConnection())
-			using (var channel = connection.CreateModel())
-			{
-				channel.QueueDeclare(queueName, false, false, false, null);
-				channel.ExchangeDeclare(queueName, "fanout", false, false, null);
-				channel.QueueBind(queueName, queueName, string.Empty);
-			}
-		}
-	}
+        private static void CreateQueue(string queueName)
+        {
+            var factory = new ConnectionFactory { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(queueName, false, false, false, null);
+                channel.ExchangeDeclare(queueName, "fanout", false, false, null);
+                channel.QueueBind(queueName, queueName, string.Empty);
+            }
+        }
+    }
 }
